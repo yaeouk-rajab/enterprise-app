@@ -26,7 +26,7 @@
     "@angular/common": "^20.3.33",
     "@angular/compiler": "^20.3.33",
     "@angular/core": "^20.3.33",
-    "@angular/forms": "^20.3.33",
+    "@angular/forms": "^20.3.34",
     "@angular/platform-browser": "^20.3.33",
     "@angular/router": "^20.3.33",
     "rxjs": "~7.8.0",
