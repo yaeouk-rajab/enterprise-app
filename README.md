@@ -21,7 +21,7 @@ _The four images above are real captures from a local run (Spring Boot jar, Angu
 
 ![Requisition with its approval chain (illustrative mockup)](docs/screenshots/requisition-detail.png)
 
-_The last two images are **illustrative mockups**, not captures. In the build used for the real captures, endpoints that return a requisition (list, detail, pending approvals, submit, decide) failed with a `LazyInitializationException` as soon as a requisition existed, so those screens could not be captured honestly. See the note on that issue in the pull request or issue tracker before treating these two as current behaviour._
+_The last two images are **illustrative mockups**, not captures. In the build used for the real captures, endpoints that return a requisition (list, detail, pending approvals, submit, decide) failed with a `LazyInitializationException` as soon as a requisition existed, so those screens could not be captured honestly. Treat these two as how the screens are meant to look, not as verified current behaviour._
 
 ## What it does
 
