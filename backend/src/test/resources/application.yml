@@ -8,6 +8,11 @@
 # ClientRegistrationRepository to find and the whole context fails to start, for every test, not
 # just the OIDC ones. Keep this block's registration id/keys in sync with the real one.
 spring:
+  jpa:
+    # Match backend/src/main/resources/application.yml. This file shadows it entirely, and Spring's
+    # default (true) kept a session open during response serialization, which hid every
+    # LazyInitializationException from the integration tests.
+    open-in-view: false
   security:
     oauth2:
       client:

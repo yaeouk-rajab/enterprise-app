@@ -5,6 +5,24 @@ covering role-based auth, a multi-step approval workflow, and container-first de
 to professional engineering standards. Part of a developer portfolio — see
 `docs/project-memory/01-brief.md` for the full story of what this is and isn't.
 
+## Screenshots
+
+![Sign-in page](docs/screenshots/login.png)
+
+![Manager dashboard with requisitions awaiting approval](docs/screenshots/dashboard.png)
+
+![A requisition's line items and approval chain](docs/screenshots/requisition-detail.png)
+
+![An employee's requisitions](docs/screenshots/requisitions.png)
+
+![Catalog](docs/screenshots/catalog.png)
+
+![Vendors, with an approval pending](docs/screenshots/vendors.png)
+
+![Departments](docs/screenshots/departments.png)
+
+_Real captures from a local run (Spring Boot jar, Angular dev server, PostgreSQL, the seeded demo accounts and reference data), driven with Playwright. The requisitions were created through the API and one was approved by the manager account._
+
 ## What it does
 
 ProcureFlow models a company's purchase-requisition → approval → purchase-order → invoice
