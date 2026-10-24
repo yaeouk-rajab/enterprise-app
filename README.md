@@ -9,19 +9,19 @@ to professional engineering standards. Part of a developer portfolio — see
 
 ![Sign-in page](docs/screenshots/login.png)
 
+![Manager dashboard with requisitions awaiting approval](docs/screenshots/dashboard.png)
+
+![A requisition's line items and approval chain](docs/screenshots/requisition-detail.png)
+
+![An employee's requisitions](docs/screenshots/requisitions.png)
+
 ![Catalog](docs/screenshots/catalog.png)
 
 ![Vendors, with an approval pending](docs/screenshots/vendors.png)
 
 ![Departments](docs/screenshots/departments.png)
 
-_The four images above are real captures from a local run (Spring Boot jar, Angular dev server, PostgreSQL, the seeded demo data and the admin demo account), driven with Playwright._
-
-![Dashboard (illustrative mockup)](docs/screenshots/dashboard.png)
-
-![Requisition with its approval chain (illustrative mockup)](docs/screenshots/requisition-detail.png)
-
-_The last two images are **illustrative mockups**, not captures. In the build used for the real captures, endpoints that return a requisition (list, detail, pending approvals, submit, decide) failed with a `LazyInitializationException` as soon as a requisition existed, so those screens could not be captured honestly. Treat these two as how the screens are meant to look, not as verified current behaviour._
+_Real captures from a local run (Spring Boot jar, Angular dev server, PostgreSQL, the seeded demo accounts and reference data), driven with Playwright. The requisitions were created through the API and one was approved by the manager account._
 
 ## What it does
 
