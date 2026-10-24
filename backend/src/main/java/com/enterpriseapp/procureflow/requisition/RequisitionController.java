@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,9 +23,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Every handler runs inside a transaction (read-only unless it mutates) so {@link
+ * RequisitionResponse#from} can walk the lazy requester, department and line-item associations.
+ * {@code spring.jpa.open-in-view} is false, so without this the service's own transaction has
+ * already ended by the time the entity is mapped and the mapping throws {@code
+ * LazyInitializationException}, which the error dispatch then surfaces as a 403.
+ */
 @RestController
 @RequestMapping("/api/v1/requisitions")
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class RequisitionController {
 
   private final RequisitionService requisitionService;
@@ -51,6 +60,7 @@ public class RequisitionController {
         requisitionService.findVisibleById(id, currentUser(authentication)));
   }
 
+  @Transactional
   @PostMapping
   public ResponseEntity<RequisitionResponse> create(
       @Valid @RequestBody CreateRequisitionRequest request, Authentication authentication) {
@@ -60,11 +70,13 @@ public class RequisitionController {
         .body(RequisitionResponse.from(created));
   }
 
+  @Transactional
   @PostMapping("/{id}/submit")
   public RequisitionResponse submit(@PathVariable Long id, Authentication authentication) {
     return RequisitionResponse.from(requisitionService.submit(id, currentUser(authentication)));
   }
 
+  @Transactional
   @PostMapping("/{id}/decide")
   public RequisitionResponse decide(
       @PathVariable Long id,
@@ -74,6 +86,7 @@ public class RequisitionController {
         requisitionService.decide(id, request, currentUser(authentication)));
   }
 
+  @Transactional
   @PostMapping("/{id}/cancel")
   public RequisitionResponse cancel(@PathVariable Long id, Authentication authentication) {
     return RequisitionResponse.from(requisitionService.cancel(id, currentUser(authentication)));
