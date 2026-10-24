@@ -5,6 +5,14 @@ covering role-based auth, a multi-step approval workflow, and container-first de
 to professional engineering standards. Part of a developer portfolio — see
 `docs/project-memory/01-brief.md` for the full story of what this is and isn't.
 
+## Screenshots
+
+![ProcureFlow dashboard](docs/screenshots/dashboard.png)
+
+![Requisition with approval chain](docs/screenshots/requisition-detail.png)
+
+_These images are illustrative mockups rendered from this repository's documented screens and API shapes, not captures of a running build. Regenerate or replace them with real captures once the app is running._
+
 ## What it does
 
 ProcureFlow models a company's purchase-requisition → approval → purchase-order → invoice
