@@ -218,6 +218,13 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!-- grpc-api pulls guava's -android flavour; 33.6.0-android is flagged by osv-scanner
+                 (GHSA-xxph-c9ww-hj94, fixed in 33.7.2). Drop once grpc-bom's managed guava catches up. -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>33.7.2-android</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
