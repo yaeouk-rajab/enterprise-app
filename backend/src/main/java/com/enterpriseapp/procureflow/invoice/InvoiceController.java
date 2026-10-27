@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,9 +19,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Handlers run inside a transaction (read-only unless they mutate) so the response mapping can walk
+ * lazy associations: {@code spring.jpa.open-in-view} is false, so the service's own transaction has
+ * already ended by the time an entity reaches the DTO factory.
+ */
 @RestController
 @RequestMapping("/api/v1/invoices")
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class InvoiceController {
 
   private final InvoiceService invoiceService;
@@ -38,6 +45,7 @@ public class InvoiceController {
     return InvoiceResponse.from(invoiceService.findById(id));
   }
 
+  @Transactional
   @PostMapping
   @PreAuthorize("hasAnyRole('ADMIN','PROCUREMENT_OFFICER')")
   public ResponseEntity<InvoiceResponse> record(
@@ -48,6 +56,7 @@ public class InvoiceController {
         .body(InvoiceResponse.from(created));
   }
 
+  @Transactional
   @PostMapping("/{id}/approve")
   @PreAuthorize("hasAnyRole('ADMIN','FINANCE_APPROVER')")
   public InvoiceResponse approve(@PathVariable Long id, Authentication authentication) {
@@ -56,6 +65,7 @@ public class InvoiceController {
             id, InvoiceStatus.APPROVED, userService.findByEmail(authentication.getName())));
   }
 
+  @Transactional
   @PostMapping("/{id}/pay")
   @PreAuthorize("hasAnyRole('ADMIN','FINANCE_APPROVER')")
   public InvoiceResponse pay(@PathVariable Long id, Authentication authentication) {
@@ -64,6 +74,7 @@ public class InvoiceController {
             id, InvoiceStatus.PAID, userService.findByEmail(authentication.getName())));
   }
 
+  @Transactional
   @PostMapping("/{id}/dispute")
   @PreAuthorize("hasAnyRole('ADMIN','FINANCE_APPROVER')")
   public InvoiceResponse dispute(@PathVariable Long id, Authentication authentication) {
