@@ -10,15 +10,3 @@
 # The two Spring Framework advisories (GHSA-j9f9-w8pj-32f8, GHSA-pc63-qcmh-9cmg)
 # that were exempted here until 2026-11-08 are fixed, not exempted: the backend
 # moved to Spring Boot 4.0.8 (Spring Framework 7.0.9).
-
-[[IgnoredVulns]]
-id = "GHSA-vfj7-8cjw-p6xm"
-ignoreUntil = 2026-11-08
-reason = """
-Stack-exhaustion DoS in braces (deeply nested brace patterns), CVSS 8.7.
-braces 3.0.3 is the latest release and the advisory lists no patched version.
-Reached only as a dev dependency ("dev": true in frontend/package-lock.json)
-through the Angular build/lint/test toolchain, which runs on developer machines
-and CI against repo-controlled glob patterns; not part of the production
-bundle. Renew if still unfixed upstream, remove the entry once a patch ships.
-"""
